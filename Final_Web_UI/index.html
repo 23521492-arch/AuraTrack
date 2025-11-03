@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraTrack - Mental Health Mood Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- ==================== LANDING PAGE ==================== -->
+    <div id="landingPage" class="landing-page">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">🌈 AuraTrack</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how">How it Works</a>
+                    <button class="btn btn-secondary" onclick="app.showLogin()">Login</button>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Track Your Mood, Understand Your Mind</h1>
+                        <p>Join thousands who improved their mental wellness through daily mood reflection</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="app.startOnboarding()">Start Free</button>
+                            <button class="btn btn-secondary">Watch Demo ▶</button>
+                        </div>
+                        <div class="hero-features">
+                            <span>✓ No credit card</span>
+                            <span>✓ Anonymous option</span>
+                            <span>✓ Private & secure</span>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="mood-emoji emoji-1">😀</div>
+                        <div class="mood-emoji emoji-2">🙂</div>
+                        <div class="mood-emoji emoji-3">😐</div>
+                        <div class="mood-emoji emoji-4">💚</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== ONBOARDING SCREENS ==================== -->
+    <div id="onboardingScreen1" class="onboarding-screen hidden">
+        <div class="onboarding-content fade-in">
+            <div class="onboarding-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+            <div class="onboarding-illustration">🧘</div>
+            <h2>Welcome to Your Wellness Journey 🌟</h2>
+            <p>Track your mood in 10 seconds daily.<br>Understand patterns. Feel better over time.</p>
+            <div class="onboarding-buttons">
+                <button class="btn-skip" onclick="app.skipOnboarding()">Skip</button>
+                <button class="btn btn-primary" onclick="app.nextOnboarding(2)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="onboardingScreen2" class="onboarding-screen hidden">
+        <div class="onboarding-content fade-in">
+            <div class="onboarding-progress">
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+            <div class="onboarding-illustration">📝</div>
+            <h2>Simple Daily Check-In</h2>
+            <p>1. Pick your mood (tap an emoji)<br>
+               2. Add optional note & tags<br>
+               3. See your progress over time<br><br>
+               🔒 Your data stays 100% private & encrypted</p>
+            <div class="onboarding-buttons">
+                <button class="btn-skip" onclick="app.skipOnboarding()">Skip</button>
+                <button class="btn btn-primary" onclick="app.nextOnboarding(3)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="onboardingScreen3" class="onboarding-screen hidden">
+        <div class="onboarding-content fade-in">
+            <div class="onboarding-progress">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+            <div class="onboarding-illustration">🛡️</div>
+            <h2>Try It First, No Strings Attached 🕊️</h2>
+            <p>Start tracking immediately without creating an account. We'll save your data locally so you can try risk-free.</p>
+            <div class="onboarding-buttons">
+                <button class="btn-skip" onclick="app.skipOnboarding()">Skip</button>
+                <button class="btn btn-primary" onclick="app.nextOnboarding(4)">Got It! →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="onboardingScreen4" class="onboarding-screen hidden">
+        <div class="onboarding-content fade-in">
+            <div class="onboarding-progress">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+            </div>
+            <div class="onboarding-illustration">🔔</div>
+            <h2>Stay on Track with Gentle Reminders</h2>
+            <p>Get a friendly nudge each day to log your mood.<br>(You can turn this off anytime)</p>
+            <div class="onboarding-buttons">
+                <button class="btn-skip" onclick="app.skipOnboarding()">Maybe Later</button>
+                <button class="btn btn-primary" onclick="app.finishOnboarding()">Enable & Start →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DASHBOARD ==================== -->
+    <div id="dashboard" class="dashboard hidden">
+        <aside class="sidebar">
+            <div class="sidebar-logo">🌈 AuraTrack</div>
+            <ul class="sidebar-menu">
+                <li class="nav-item active" onclick="app.showPage('dashboard')">
+                    <span>🏠</span> <span>Dashboard</span>
+                </li>
+                <li class="nav-item" onclick="app.showPage('history')">
+                    <span>📜</span> <span>History</span>
+                </li>
+                <li class="nav-item" onclick="app.showPage('analytics')">
+                    <span>📊</span> <span>Analytics</span>
+                </li>
+                <li class="nav-item" onclick="app.showPage('settings')">
+                    <span>⚙️</span> <span>Settings</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="btn btn-logout" onclick="app.logout()">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- ========== DASHBOARD PAGE ========== -->
+            <div id="page-dashboard" class="page-content">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Today: <span id="currentDate"></span></h1>
+                    </div>
+                    <div class="streak-badge">
+                        <span>🔥</span>
+                        <span id="streakCount">0</span>
+                        <span>day streak!</span>
+                    </div>
+                </div>
+
+                <div class="mood-logger">
+                    <h2>How are you feeling today?</h2>
+
+                    <div class="mood-selector">
+                        <div class="mood-option" data-mood="amazing" onclick="app.selectMood('amazing', this)">
+                            <div class="mood-emoji">😀</div>
+                            <div class="mood-label">Amazing</div>
+                        </div>
+                        <div class="mood-option" data-mood="good" onclick="app.selectMood('good', this)">
+                            <div class="mood-emoji">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option" data-mood="neutral" onclick="app.selectMood('neutral', this)">
+                            <div class="mood-emoji">😐</div>
+                            <div class="mood-label">Neutral</div>
+                        </div>
+                        <div class="mood-option" data-mood="sad" onclick="app.selectMood('sad', this)">
+                            <div class="mood-emoji">🙁</div>
+                            <div class="mood-label">Sad</div>
+                        </div>
+                        <div class="mood-option" data-mood="terrible" onclick="app.selectMood('terrible', this)">
+                            <div class="mood-emoji">😞</div>
+                            <div class="mood-label">Terrible</div>
+                        </div>
+                    </div>
+
+                    <div class="intensity-slider">
+                        <label>Intensity: <span id="intensityValue">3</span>/5</label>
+                        <input type="range" min="1" max="5" value="3" class="slider" id="intensitySlider" oninput="app.updateIntensity(this.value)">
+                    </div>
+
+                    <div class="note-input">
+                        <label>How was your day? (optional)</label>
+                        <textarea id="moodNote" placeholder="I felt productive today..."></textarea>
+                    </div>
+
+                    <div class="tag-selector">
+                        <label>Tags:</label>
+                        <div class="tags-container">
+                            <div class="tag-chip" onclick="app.toggleTag(this)">🏢 Work</div>
+                            <div class="tag-chip" onclick="app.toggleTag(this)">💪 Exercise</div>
+                            <div class="tag-chip" onclick="app.toggleTag(this)">👨‍👩‍👧 Family</div>
+                            <div class="tag-chip" onclick="app.toggleTag(this)">🏠 Home</div>
+                            <div class="tag-chip" onclick="app.toggleTag(this)">☀️ Weather</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-save-mood" onclick="app.saveMood()">💾 Save Mood Entry</button>
+                </div>
+
+                <div class="recent-entries">
+                    <h3>Recent Entries</h3>
+                    <div id="entriesList"></div>
+                </div>
+            </div>
+
+            <!-- ========== HISTORY PAGE ========== -->
+            <div id="page-history" class="page-content hidden">
+                <h1>Mood History 📜</h1>
+                
+                <div class="history-controls">
+                    <select id="filterMonth" onchange="app.filterHistory()" class="filter-select">
+                        <option value="">All Months</option>
+                        <option value="current">This Month</option>
+                        <option value="last7">Last 7 Days</option>
+                        <option value="last30">Last 30 Days</option>
+                    </select>
+                    
+                    <select id="filterMood" onchange="app.filterHistory()" class="filter-select">
+                        <option value="">All Moods</option>
+                        <option value="amazing">😀 Amazing</option>
+                        <option value="good">🙂 Good</option>
+                        <option value="neutral">😐 Neutral</option>
+                        <option value="sad">🙁 Sad</option>
+                        <option value="terrible">😞 Terrible</option>
+                    </select>
+                </div>
+
+                <div class="history-calendar">
+                    <h3 id="calendarMonth">November 2025</h3>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <div class="no-data">No entries to display. Start logging your mood! 📝</div>
+                </div>
+            </div>
+
+            <!-- ========== ANALYTICS PAGE ========== -->
+            <div id="page-analytics" class="page-content hidden">
+                <h1>Analytics 📊</h1>
+                
+                <div class="analytics-controls">
+                    <label>Time Range:</label>
+                    <div class="range-selector">
+                        <button class="range-btn active" data-days="7" onclick="app.updateAnalytics(7)">7 Days</button>
+                        <button class="range-btn" data-days="30" onclick="app.updateAnalytics(30)">30 Days</button>
+                        <button class="range-btn" data-days="90" onclick="app.updateAnalytics(90)">90 Days</button>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <h3>Mood Trend</h3>
+                        <div class="chart-placeholder" id="trendChart">
+                            <svg viewBox="0 0 400 200" class="line-chart">
+                                <polyline points="20,150 80,100 140,120 200,80 260,90 320,70 380,110" class="trend-line"></polyline>
+                                <circle cx="20" cy="150" r="4" class="chart-point"></circle>
+                                <circle cx="380" cy="110" r="4" class="chart-point"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Mood Distribution</h3>
+                        <div class="mood-stats" id="moodStats">
+                            <div class="stat-item">
+                                <div class="stat-mood">😀</div>
+                                <div class="stat-bar"><div class="bar-fill" style="width: 0%"></div></div>
+                                <div class="stat-count">0%</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-mood">🙂</div>
+                                <div class="stat-bar"><div class="bar-fill" style="width: 0%"></div></div>
+                                <div class="stat-count">0%</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-mood">😐</div>
+                                <div class="stat-bar"><div class="bar-fill" style="width: 0%"></div></div>
+                                <div class="stat-count">0%</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-mood">🙁</div>
+                                <div class="stat-bar"><div class="bar-fill" style="width: 0%"></div></div>
+                                <div class="stat-count">0%</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-mood">😞</div>
+                                <div class="stat-bar"><div class="bar-fill" style="width: 0%"></div></div>
+                                <div class="stat-count">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-card">
+                    <h3>📌 Insights</h3>
+                    <div id="insightsList"></div>
+                </div>
+            </div>
+
+            <!-- ========== SETTINGS PAGE ========== -->
+            <div id="page-settings" class="page-content hidden">
+                <h1>Settings ⚙️</h1>
+                
+                <div class="settings-section">
+                    <h3>Profile</h3>
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" id="userName" class="form-input" value="Anonymous User">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="userEmail" class="form-input" value="user@example.com">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Data & Privacy</h3>
+                    <button class="btn btn-secondary" onclick="app.exportData('csv')">📥 Export as CSV</button>
+                    <button class="btn btn-secondary" onclick="app.exportData('json')">📥 Export as JSON</button>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Preferences</h3>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="reducedAnimations" checked> Reduce Animations
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="darkMode"> Dark Mode
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <button class="btn btn-primary" onclick="app.saveSettings()">💾 Save Settings</button>
+                    <button class="btn btn-danger" onclick="app.clearAllData()">🗑️ Clear All Data</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-icon">🎉</div>
+            <h2>Awesome!</h2>
+            <p id="modalMessage">You logged your first mood entry!</p>
+            <button class="btn btn-primary" onclick="app.closeModal()">Continue →</button>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message">Mood saved successfully!</div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
