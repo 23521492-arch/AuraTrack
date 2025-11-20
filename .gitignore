@@ -1,6 +1,8 @@
 node_modules/
-.env
+# ignore environment files globally and nested
+**/.env
 !.env.example
+src/.env
 jsconfig.json
 
 # REACT

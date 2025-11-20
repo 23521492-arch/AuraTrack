@@ -97,12 +97,12 @@ export const signIn = async (req,res) => {
     }
 };
 
-export const singOut = async (req,res) =>{
+export const signOut = async (req,res) =>{
     try {
         //Take refreshToken from cookie
         const token = req.cookies?.refreshToken;
 
-        if(!token){
+        if(token){
         //Delete refreshToken from session
             await Session.deleteOne({refreshToken: token});
         //Delete cookie
