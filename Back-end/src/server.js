@@ -5,6 +5,10 @@ import authRoute from './routes/authRoute.js';
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
 import { protectedRoute } from './middlewares/authMiddleware.js';
+import moodRoute from './routes/moodRoute.js';
+import journalRoute from './routes/journalRoute.js';
+import habitRoute from './routes/habitRoute.js';
+import exerciseRoute from './routes/exerciseRoute.js';
 dotenv.config({ path: './src/.env' });
 
 const app = express();
@@ -20,6 +24,10 @@ app.use('/api/auth', authRoute);
 //private routes
 app.use(protectedRoute);
 app.use('/api/users', userRoute);
+app.use('/api/moods', moodRoute);
+app.use('/api/journals', journalRoute);
+app.use('/api/habits', habitRoute);
+app.use('/api/exercises', exerciseRoute);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
