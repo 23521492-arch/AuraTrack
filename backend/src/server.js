@@ -15,6 +15,8 @@ import paymentRoute from './routes/paymentRoute.js';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +38,44 @@ app.use(cookieParser());
 
 // Serve static files (sounds) - public route, no auth required
 app.use('/sounds', express.static(path.join(__dirname, '.')));
+
+// Swagger Configuration
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'AuraTrack API Documentation',
+      version: '1.0.0',
+      description: 'API documentation for AuraTrack - Mental Health Tracking Application',
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: 'Development Server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ['./src/routes/*.js'], // Path to the API docs
+};
+
+//swagger docs
+const swaggerSpecs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 //public routes
 app.use('/api/auth', authRoute);
@@ -64,7 +104,7 @@ connectDB().then(async () => {
   } catch (error) {
     console.error('Warning: Could not auto-seed facts:', error.message);
   }
-  
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
