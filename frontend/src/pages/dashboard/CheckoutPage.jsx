@@ -4,7 +4,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { paymentAPI } from '../../services/api';
-import { 
+import {
   Lock, CheckCircle, ArrowLeft, Sparkle
 } from 'phosphor-react';
 import paypalLogo from '../../assets/paypal-logo.png';
@@ -46,24 +46,24 @@ const CheckoutPage = () => {
     const payerId = urlParams.get('PayerID');
     const token = urlParams.get('token');
     const canceled = urlParams.get('canceled');
-    
+
     if (canceled) {
       toast.info('Payment cancelled');
       window.history.replaceState({}, document.title, '/dashboard/checkout');
       return;
     }
-    
+
     if (paymentId) {
       const verifyPayment = async () => {
         setLoading(true);
         try {
           const plan = urlParams.get('plan') || finalPlanType;
           const response = await paymentAPI.verifyPayPalPayment(paymentId, payerId, token, plan);
-          
+
           if (response.success) {
             toast.success('Payment verified! Welcome to Pro!');
             window.history.replaceState({}, document.title, '/dashboard/checkout');
-            
+
             setTimeout(() => {
               navigate('/dashboard/settings?tab=billing&upgraded=true');
             }, 1500);
@@ -76,11 +76,11 @@ const CheckoutPage = () => {
           setLoading(false);
         }
       };
-      
+
       verifyPayment();
       return;
     }
-    
+
     const storedPaymentId = sessionStorage.getItem('paypal_payment_id');
     if (storedPaymentId && !paymentId && !canceled) {
       const checkPayment = async () => {
@@ -89,7 +89,7 @@ const CheckoutPage = () => {
           'Nếu đã thanh toán, chúng tôi sẽ kích hoạt Pro plan cho bạn.\n\n' +
           'Click OK để kích hoạt, hoặc Cancel nếu chưa thanh toán.'
         );
-        
+
         if (confirmed) {
           setLoading(true);
           try {
@@ -100,12 +100,12 @@ const CheckoutPage = () => {
               null,
               plan
             );
-            
+
             if (response.success) {
               toast.success('Payment verified! Welcome to Pro!');
               sessionStorage.removeItem('paypal_payment_id');
               sessionStorage.removeItem('paypal_plan');
-              
+
               setTimeout(() => {
                 navigate('/dashboard/settings?tab=billing&upgraded=true');
               }, 1500);
@@ -120,7 +120,7 @@ const CheckoutPage = () => {
           sessionStorage.removeItem('paypal_plan');
         }
       };
-      
+
       checkPayment();
     }
   }, [finalPlanType, navigate, toast]);
@@ -129,26 +129,26 @@ const CheckoutPage = () => {
     setLoading(true);
     try {
       toast.info('Creating PayPal payment...');
-      
+
       const response = await paymentAPI.createPayPalPayment(finalPlanType, currentPlan.total);
-      
+
       if (response.success) {
         // Store payment ID for verification after return
         if (response.method === 'paypalme') {
           // PayPal.me: Store in sessionStorage and redirect
-            sessionStorage.setItem('paypal_payment_id', response.paymentId);
-            sessionStorage.setItem('paypal_plan', finalPlanType);
-            toast.info('Redirecting to PayPal...');
-          } else {
-            sessionStorage.setItem('paypal_payment_id', response.paymentId);
+          sessionStorage.setItem('paypal_payment_id', response.paymentId);
+          sessionStorage.setItem('paypal_plan', finalPlanType);
+          toast.info('Redirecting to PayPal...');
+        } else {
+          sessionStorage.setItem('paypal_payment_id', response.paymentId);
           sessionStorage.setItem('paypal_plan', finalPlanType);
         }
-        
+
         if (response.redirectUrl) {
           window.location.href = response.redirectUrl;
           return;
         }
-        
+
         if (response.demoMode) {
           const confirmed = window.confirm(
             `Demo Mode: Simulate PayPal payment?\n\n` +
@@ -156,17 +156,17 @@ const CheckoutPage = () => {
             `Amount: $${currentPlan.total.toFixed(2)}\n\n` +
             `To enable real PayPal, add PAYPAL_ME_USERNAME to .env`
           );
-          
+
           if (confirmed) {
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
+
             const verifyResponse = await paymentAPI.verifyPayPalPayment(
               response.paymentId,
               null,
               null,
               finalPlanType
             );
-            
+
             if (verifyResponse.success) {
               toast.success('Payment processed successfully! Welcome to Pro!');
               sessionStorage.removeItem('paypal_payment_id');
@@ -254,9 +254,9 @@ const CheckoutPage = () => {
 
               {/* PayPal Logo */}
               <div className="flex justify-center mb-6">
-                <img 
-                  src={paypalLogo} 
-                  alt="PayPal" 
+                <img
+                  src={paypalLogo}
+                  alt="PayPal"
                   className="h-6 w-auto object-contain opacity-90"
                   onError={(e) => {
                     e.target.style.display = 'none';
