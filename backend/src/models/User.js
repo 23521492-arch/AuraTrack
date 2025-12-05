@@ -1,0 +1,69 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+    },
+    hashedPassword: {
+        type: String,
+        required: true,
+    },
+    email:{
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+    },
+
+    displayName: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
+    avatarUrl:{
+        type:String,//Link CDN to avatar
+    },
+    
+    avatarId:{
+        type:String,//Cloudinary public ID
+    },
+
+    bio:{
+        type:String,
+        maxlength: 500,//optional
+    },
+    phone:{
+        type:String,
+        sparse: true,//can be null, but unique
+    },
+    subscription: {
+        plan: {
+            type: String,
+            enum: ['free', 'monthly', 'yearly'],
+            default: 'free'
+        },
+        status: {
+            type: String,
+            enum: ['inactive', 'active', 'cancelled', 'expired'],
+            default: 'inactive'
+        },
+        startDate: Date,
+        endDate: Date,
+        paymentMethod: String, // 'card', 'paypal'
+        paymentId: String, // Payment transaction ID
+    },
+},
+
+{
+    timestamps: true,
+}
+);
+
+const User = mongoose.model("User", userSchema);
+export default User;
