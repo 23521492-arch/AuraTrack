@@ -15,7 +15,6 @@ const router = express.Router();
  *   post:
  *     summary: Register a new user
  *     tags: [Auth]
- *     security: []
  *     requestBody:
  *       required: true
  *       content:
@@ -54,7 +53,6 @@ router.post("/signup", signUp);
  *   post:
  *     summary: Login user
  *     tags: [Auth]
- *     security: []
  *     requestBody:
  *       required: true
  *       content:
