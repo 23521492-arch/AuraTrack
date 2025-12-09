@@ -44,13 +44,13 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'AuraTrack API Documentation',
+      title: 'Heal API Documentation',
       version: '1.0.0',
-      description: 'API documentation for AuraTrack - Mental Health Tracking Application',
+      description: 'API documentation for Heal - Mental Health Tracking Application',
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: `https://heal-7tfd.onrender.com`,
         description: 'Development Server',
       },
     ],
